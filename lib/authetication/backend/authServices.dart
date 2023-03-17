@@ -282,9 +282,7 @@ class AuthService {
 
 
       await FirebaseFirestore.instance
-          .collection('clicks')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set({
+          .collection('clicks').add({
         'full_name': name,
         'full_name_user': nameUser,
         'email': email,
