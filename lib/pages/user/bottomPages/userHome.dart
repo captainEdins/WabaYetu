@@ -303,7 +303,7 @@ class _UserHomeState extends State<UserHome> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: LoadingAnimationWidget.dotsTriangle(
-                color: ColorList.blue,
+                color: ColorList.white,
                 size: 100,
               ),
             );
@@ -316,7 +316,7 @@ class _UserHomeState extends State<UserHome> {
                     "You currently having zero adds search and be able to see them here",
                     maxLines: 1,
                     style: TextStyle(
-                      color: ColorList.blue,
+                      color: ColorList.white,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),

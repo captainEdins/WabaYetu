@@ -42,7 +42,10 @@ class _HeadersState extends State<Headers> {
               ),
             ),
           ),
-
+          SizedBox(
+              height: 60,
+              width: 60,
+              child: Image.asset("images/logo.png")),
           Text(
             getTitle,
             style: const TextStyle(

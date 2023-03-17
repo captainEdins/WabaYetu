@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:wabayetu/pages/helper/profilePage.dart';
 import 'package:wabayetu/pages/user/bottomPages/historyUser.dart';
 import 'package:wabayetu/pages/user/bottomPages/userHome.dart';
 import 'package:wabayetu/resource/color.dart';
@@ -86,7 +87,7 @@ class _UserHolderState extends State<UserHolder> {
       const UserHome(),
       const HistoryUser(),
       containerHere("waba"),
-      containerHere("settings"),
+      const ProfilePage(),
     ];
   }
 
