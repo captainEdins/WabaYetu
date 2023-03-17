@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "485804141750",
+    "project_id": "shamba-fresh",
+    "storage_bucket": "shamba-fresh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485804141750:android:8f8ba19d641e24bf690a17",
+        "android_client_info": {
+          "package_name": "com.gabina.wabayetu.wabayetu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485804141750-dgqkth1tscejcv1220rnsfopn2otgjcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzB829TQoQfsT0Pf254OQRMF6S2snExSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485804141750-dgqkth1tscejcv1220rnsfopn2otgjcu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "485804141750-rhap575fiii6n3kid7albe6nttbk3jvl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shamba.shambaFresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485804141750:android:c5348b1bb27ca508690a17",
+        "android_client_info": {
+          "package_name": "com.shamba.shamba_fresh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485804141750-dgqkth1tscejcv1220rnsfopn2otgjcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzB829TQoQfsT0Pf254OQRMF6S2snExSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485804141750-dgqkth1tscejcv1220rnsfopn2otgjcu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "485804141750-rhap575fiii6n3kid7albe6nttbk3jvl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shamba.shambaFresh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
