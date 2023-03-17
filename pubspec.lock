@@ -464,6 +464,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0+4"
+  location_geocoder:
+    dependency: "direct main"
+    description:
+      name: location_geocoder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   lottie:
     dependency: "direct main"
     description:

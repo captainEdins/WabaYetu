@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
@@ -58,6 +57,7 @@ class _RegisterState extends State<Register> {
             visible: verticalGroupValue != "Basic User" ? true : false,
             child: Column(
               children: [
+                inputShopName(),
                 inputLocation(),
                 inputBio(),
               ],
@@ -74,6 +74,7 @@ class _RegisterState extends State<Register> {
 
   TextEditingController getEmail = TextEditingController();
   TextEditingController getName = TextEditingController();
+  TextEditingController getShopName = TextEditingController();
   TextEditingController getLocation = TextEditingController();
   TextEditingController getBio = TextEditingController();
   TextEditingController getPassword = TextEditingController();
@@ -83,6 +84,7 @@ class _RegisterState extends State<Register> {
 
   String get password => getPassword.text.trim();
   String get name => getName.text.trim();
+  String get nameShop => getShopName.text.trim();
   String get location => getLocation.text.trim();
   String get bio => getBio.text.trim();
   String get phone => getPhoneNumber.text.trim();
@@ -206,6 +208,58 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+  Widget inputShopName() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: TextField(
+              cursorColor: ColorList.blue.withOpacity(.5),
+              keyboardType: TextInputType.text,
+              style: const TextStyle(
+                  color: ColorList.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
+              controller: getShopName,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                filled: true,
+                fillColor: ColorList.blue.withOpacity(.2),
+                hintText: 'Shop name',
+                suffixIcon: const Icon(
+                  Icons.shopping_basket,
+                  size: 24,
+                  color: ColorList.blue,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                      width: 1, color: ColorList.black.withOpacity(.0)),
+                ),
+                hintStyle: const TextStyle(
+                    color: ColorList.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+                labelStyle: const TextStyle(
+                    color: ColorList.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 1, color: ColorList.black.withOpacity(.0)),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   Widget inputBio() {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
@@ -278,7 +332,7 @@ class _RegisterState extends State<Register> {
                         apiKey: Platform.isAndroid
                             ? "AIzaSyAO6CcKrA0n1XTgIR6VHe-5G7P0p2KenGY"
                             : "AIzaSyAO6CcKrA0n1XTgIR6VHe-5G7P0p2KenGY",
-                        onPlacePicked: (result) {
+                        onPlacePicked: (result) async {
                   // print(result.formattedAddress);
                   // print(result.vicinity);
                   // print(result.reference);
@@ -287,6 +341,7 @@ class _RegisterState extends State<Register> {
                   // print(result.geometry);
                   // print(result.placeId);
                   print("here 0ne ${result.toString()}");
+
 
                   setState(() {
                     getLocation.text = result.formattedAddress.toString();
@@ -509,7 +564,7 @@ class _RegisterState extends State<Register> {
 
         }else{
 
-          if (email.isNotEmpty || name.isNotEmpty || bio.isNotEmpty || location.isNotEmpty || password.isNotEmpty ||
+          if (email.isNotEmpty || name.isNotEmpty || nameShop.isNotEmpty || bio.isNotEmpty || location.isNotEmpty || password.isNotEmpty ||
               phone.isNotEmpty) {
             createUser();
           } else {
@@ -598,6 +653,7 @@ class _RegisterState extends State<Register> {
       role : verticalGroupValue,
       location : getLocation.text,
       bio : getBio.text,
+      shopName : getShopName.text,
     );
 
 

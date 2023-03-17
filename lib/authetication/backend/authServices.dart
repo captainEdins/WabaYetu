@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:location_geocoder/location_geocoder.dart';
 import 'package:wabayetu/model/user.dart' as model;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,7 @@ class AuthService {
     required String role,
      String location = "not applicable",
      String bio = "not applicable",
+     String shopName = "not applicable",
   }) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -26,7 +28,7 @@ class AuthService {
       );
 
       final message =
-          await addUser(name: name, email: email,phone : phone, role : role,location : location, bio : bio);
+          await addUser(name: name, email: email,phone : phone, role : role,location : location, bio : bio, shopName : shopName);
 
       var returnMessage = "";
       if (message!.contains('Added user')) {
@@ -145,8 +147,27 @@ class AuthService {
       required String phone,
       required String bio,
       required String location,
+      required String shopName,
       }) async {
     try {
+
+
+      String lat = "not applicable";
+      String long = "not applicable";
+
+
+      if(role != "Basic User"){
+        const apiKey = 'AIzaSyAO6CcKrA0n1XTgIR6VHe-5G7P0p2KenGY';
+        final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey);
+        final address = await geocoder.findAddressesFromQuery(location);
+        print(address.first.coordinates.longitude);
+
+        long = address.first.coordinates.longitude.toString();
+        lat = address.first.coordinates.latitude.toString();
+      }
+
+
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -156,6 +177,9 @@ class AuthService {
         'role': role,
         'phone': phone,
         'bio': bio,
+        'lat': lat,
+        'long': long,
+        'shopName': shopName,
         'location': location,
         'timestamp': DateTime.now().millisecondsSinceEpoch,
         'status': true,
