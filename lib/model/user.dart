@@ -6,6 +6,14 @@ class Users {
   final String role;
   final bool status;
   final String photoUrl;
+  final String bio;
+  final String lat;
+  final String long;
+  final String shopName;
+  final String location;
+  final String phone;
+
+
 
 
   const Users(
@@ -14,6 +22,12 @@ class Users {
         required this.role,
         required this.email,
         required this.photoUrl,
+        required this.bio,
+        required this.lat,
+        required this.long,
+        required this.shopName,
+        required this.location,
+        required this.phone,
       });
 
   static Users fromSnap(DocumentSnapshot snap) {
@@ -25,6 +39,12 @@ class Users {
       email: snapshot["email"],
       role: snapshot["role"],
       photoUrl: snapshot["photoUrl"],
+      bio: snapshot["bio"],
+      lat: snapshot["lat"],
+      long: snapshot["long"],
+      shopName: snapshot["shopName"],
+      location: snapshot["location"],
+      phone: snapshot["phone"],
     );
   }
 
@@ -34,5 +54,11 @@ class Users {
     "role": role,
     "status": status,
     "photoUrl": photoUrl,
+    "bio": bio,
+    "lat": lat,
+    "long": long,
+    "shopName": shopName,
+    "location": location,
+    "phone": phone,
   };
 }

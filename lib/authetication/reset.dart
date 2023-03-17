@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,6 +24,13 @@ class _ResetState extends State<Reset> {
       body: ListView(
         padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top > 0 ? 40 : 10),
         children: <Widget>[
+          InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: backButton())),
           SizedBox(
             height: (MediaQuery.of(context).size.height / 4) - 5,
             width: (MediaQuery.of(context).size.width / 4) - 5,
@@ -198,6 +206,14 @@ class _ResetState extends State<Reset> {
     showAlertDialogGood(message!,buttonOk(),takeMessage);
 
     //then load the user to the database
+  }
+
+  Widget backButton() {
+    return const Icon(
+      CupertinoIcons.arrow_left_square_fill,
+      size: 34,
+      color: ColorList.blue,
+    );
   }
 
   showAlertDialog(BuildContext contexts) async {
