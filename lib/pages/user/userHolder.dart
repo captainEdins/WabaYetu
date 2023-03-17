@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:wabayetu/pages/user/bottomPages/historyUser.dart';
 import 'package:wabayetu/pages/user/bottomPages/userHome.dart';
 import 'package:wabayetu/resource/color.dart';
 
@@ -29,13 +30,12 @@ class _UserHolderState extends State<UserHolder> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: ColorList.blue.withOpacity(.4), // Default is Colors.white.
+      backgroundColor: ColorList.blue, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true, // Default is true.
       hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: const NavBarDecoration(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(8.0), topLeft: Radius.circular(8.0) ),
         colorBehindNavBar: ColorList.white,
       ),
       popAllScreensOnTapOfSelectedTab: true,
@@ -58,25 +58,25 @@ class _UserHolderState extends State<UserHolder> {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.house_fill),
         title: ("Home"),
-        activeColorPrimary: ColorList.blue,
-        inactiveColorPrimary: ColorList.white,
+        activeColorPrimary: ColorList.white,
+        inactiveColorPrimary: ColorList.lightGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.square_list_fill),
         title: ("History"),
-        activeColorPrimary: ColorList.blue,
-        inactiveColorPrimary: ColorList.white,
+        activeColorPrimary: ColorList.white,
+        inactiveColorPrimary: ColorList.lightGrey,
       ), PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.drop_fill),
         title: ("Waba"),
-        activeColorPrimary: ColorList.blue,
-        inactiveColorPrimary: ColorList.white,
+        activeColorPrimary: ColorList.white,
+        inactiveColorPrimary: ColorList.lightGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.settings),
         title: ("Settings"),
-        activeColorPrimary: ColorList.blue,
-        inactiveColorPrimary: ColorList.white,
+        activeColorPrimary: ColorList.white,
+        inactiveColorPrimary: ColorList.lightGrey,
       ),
     ];
   }
@@ -84,7 +84,7 @@ class _UserHolderState extends State<UserHolder> {
   List<Widget> _buildScreens() {
     return [
       const UserHome(),
-      containerHere("history"),
+      const HistoryUser(),
       containerHere("waba"),
       containerHere("settings"),
     ];

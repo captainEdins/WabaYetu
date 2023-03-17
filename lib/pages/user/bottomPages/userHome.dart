@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clippy_flutter/clippy_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -8,6 +9,7 @@ import 'dart:typed_data';
 
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wabayetu/authetication/backend/authServices.dart';
@@ -252,16 +254,25 @@ class _UserHomeState extends State<UserHome> {
     return Scaffold(
       body: Stack(
         children: [
-          GoogleMap(
-            onTap: (position) {
-              _customInfoWindowController.hideInfoWindow!();
-            },
-            onCameraMove: (position) {
-              _customInfoWindowController.onCameraMove!();
-            },
-            onMapCreated: onMapCreated,
-            markers: marker,
-            initialCameraPosition: initialCameraPosition,),
+          Stack(
+            children: [
+              GoogleMap(
+                onTap: (position) {
+                  _customInfoWindowController.hideInfoWindow!();
+                },
+                onCameraMove: (position) {
+                  _customInfoWindowController.onCameraMove!();
+                },
+                onMapCreated: onMapCreated,
+                markers: marker,
+                initialCameraPosition: initialCameraPosition,),
+              Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: bottomAds())
+            ],
+          ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
             height: 180,
@@ -273,6 +284,126 @@ class _UserHomeState extends State<UserHome> {
     );
   }
 
+
+  Widget bottomAds(){
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 4,
+        decoration:  const BoxDecoration(
+          color: ColorList.blue,
+          borderRadius: BorderRadius.only(topRight: Radius.circular(8.0), topLeft: Radius.circular(8.0) ),
+        ),
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('ads')
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+            snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: LoadingAnimationWidget.dotsTriangle(
+                color: ColorList.blue,
+                size: 100,
+              ),
+            );
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return Column(
+              children: const [
+                Center(
+                  child: Text(
+                    "You currently having zero adds search and be able to see them here",
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: ColorList.blue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                )
+              ],
+            );
+          }
+          return ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (ctx, index) => adsHolder(
+              snap: snapshot.data!.docs[index].data(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget adsHolder({required Map<String, dynamic> snap}) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+      decoration: BoxDecoration(
+        color: ColorList.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+              width: 50,
+              height: 60,
+              decoration: BoxDecoration(
+                //decoration for the outer wrapper
+                color: ColorList.blue,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: snap['image'],
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                placeholder: (context, url) =>
+                const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  snap["full_name"],
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: ColorList.blue,
+                      fontSize: 16),
+                ),
+                Text(
+                  snap["bio"],
+                  maxLines: 3,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w100,
+                      color: ColorList.blue,
+                      fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Future<void> createUser(Map<String, dynamic> data) async {
     showAlertDialog(context);
