@@ -1,5 +1,5 @@
 class Strings {
-  static const String appName = "Waba Yetu";
+  static const String appName = "WabaYetu";
   static const String forgotPassword = "Forgot Password ?";
   static const String back = "Back";
   static const String noAccount = "Don't have an account yet ?";

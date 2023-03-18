@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:wabayetu/pages/helper/waba/faq.dart';
 import 'package:wabayetu/pages/helper/waba/weatherPage.dart';
 import 'package:wabayetu/pages/widgets/headers.dart';
 import 'package:wabayetu/resource/color.dart';
@@ -75,7 +76,7 @@ class _WabaPageState extends State<WabaPage> {
             },
             buttons: const ["Forecast", "FAQ", "Educate"],
           ),
-          Expanded(child:  selectedButton == "Forecast" ? const WeatherPage() : selectedButton == "FAQ" ? const Text("FAQ") : const Text("FAQ"))
+          Expanded(child:  selectedButton == "Forecast" ? const WeatherPage() : selectedButton == "FAQ" ? const Faq() : const Text("FAQ"))
         ],
       ),
     );
