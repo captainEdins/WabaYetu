@@ -97,7 +97,6 @@ class _ShopHomeState extends State<ShopHome> {
 
     FirebaseFirestore.instance.collection("users")
         .where("role", isNotEqualTo: "Basic User")
-        .where("email", isNotEqualTo: email)
         .snapshots()
         .listen((event) {
 
@@ -107,8 +106,9 @@ class _ShopHomeState extends State<ShopHome> {
 
 
 
-                marker.add(
-                    Marker(
+                if(doc.data()["email"] != email){
+                  marker.add(
+                      Marker(
                         markerId: MarkerId(doc.data()["location"]),
                         draggable: false,
                         onTap: (){
@@ -187,8 +187,10 @@ class _ShopHomeState extends State<ShopHome> {
 
                         position: LatLng(double.parse(doc.data()["lat"].trim()),
                             double.parse(doc.data()["long"].trim())),
-                      icon:  doc.data()["role"] == "Water Treatment Facility" ? BitmapDescriptor.fromBytes(markIconsDoc) : BitmapDescriptor.fromBytes(markIconsSeller),
-                    ));
+                        icon:  doc.data()["role"] == "Water Treatment Facility" ? BitmapDescriptor.fromBytes(markIconsDoc) : BitmapDescriptor.fromBytes(markIconsSeller),
+                      ));
+                }
+
               });
             }
           }
