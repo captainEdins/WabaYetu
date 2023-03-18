@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wabayetu/authetication/login.dart';
+import 'package:wabayetu/pages/shop/shopHolder.dart';
 import 'package:wabayetu/pages/user/userHolder.dart';
 import 'package:wabayetu/resource/color.dart';
 import 'package:wabayetu/splash/widgets/animationScreen.dart';
@@ -56,9 +57,16 @@ class _SplashState extends State<Splash> {
     final prefs = await SharedPreferences.getInstance();
     //check if the user have to set new password
     final getLoginStatus = prefs.getString('login') ?? "";
+    final getRole = prefs.getString('role') ?? "";
     if(getLoginStatus == "in"){
       //here we are in home
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  const UserHolder()));
+      if(getRole == "Basic User"){
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const UserHolder()));
+      }else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const ShopHolder()));
+      }
     }else{
       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  const Login()));
     }
