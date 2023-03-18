@@ -165,7 +165,7 @@ class _HistoryShopState extends State<HistoryShop> {
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, index) => historyHolder(
+                    itemBuilder: (ctx, index) => customerHolder(
                       snap: snapshot.data!.docs[index].data(),
                     ),
                   );
