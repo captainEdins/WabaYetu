@@ -17,7 +17,7 @@
 
 ## The solutions we are giving:
 
-Wabayetu is an Mobile based Application designed by Wabayetu developers to solve the
+Wabayetu is a Mobile based Application designed by Wabayetu developers to solve the
 problem of water insecurities in modern Africa in relation to technology.
 Wabayetu came as a result of strong and persistent droughts that are experienced largely
 within Africa.
